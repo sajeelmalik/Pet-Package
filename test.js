@@ -129,7 +129,7 @@ $(document).on("click", ".thumbnail", function(event){
     var parsedAddress = $(this).attr("data-location").replace(/\./g,'');
     console.log(parsedAddress)
 
-    if(parsedAddress.includes("PO Box" || "POBox")){
+    if(parsedAddress.includes("PO Box" || "POBox" || "P O Box")){
         address = $(this).attr("data-zip");
     }
     else{
