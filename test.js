@@ -90,6 +90,7 @@ $(document).on("click", ".send", function(event){
             thumbnail.attr("breed", breedArr[i]);
             thumbnail.attr("data-location", streetAddr[i]);
             thumbnail.attr("data-zip", zipArr[i]);
+            thumbnail.attr("data-image", imgArr[i]);
             var phoneNum = $("<p>").text(phoneArr[i]);
             thumbnail.attr("number", phoneArr[i]);
             var image = $("<img>").attr("src", imgArr[i]);
@@ -144,7 +145,10 @@ $(document).on("click", ".thumbnail", function(event){
    $("#google-map").attr("src", queryURL);
    $(".mapParameters").show();
    $(".animalInfo").show();
+//    $(".animalInfo").css("display", "flex");
 
+    var pic = $("<img>").attr("src", $(this).attr("data-image"))
+   $("#profilePic").html(pic);
    $("#mapName").text("Name: " + $(this).attr("name"));
    $("#mapBreed").text($(this).attr("breed"));
    $("#mapNumber").text($(this).attr("number"));

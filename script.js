@@ -52,3 +52,16 @@ $(document).on("click", "#searchPets", function() {
 
 })
 
+$(document).on("click", "#minimize", function() {
+   
+    $(".animalInfo").hide();
+    $(".minimizedInfo").show();
+})
+
+$(document).on("click", ".minimizedInfo", function() {
+   
+    $(".minimizedInfo").hide();
+    $(".animalInfo").show();
+})
+
+

@@ -300,14 +300,8 @@
 
     .pictureInfo {
         display: flex;
-
     }
 
-    #profilePic {
-        height: 300px;
-        width: 300px;
-        background-color: white;
-    }
 
     .thumbnail img {
     }
@@ -324,7 +318,7 @@
         z-index: 1;
     }
 
-    .mapParameters {
+    /* .mapParameters {
         position: absolute;
         right: 2%;
         top: 45%;
@@ -333,22 +327,65 @@
         transform: translateY(-50%);
         box-shadow: 0 5px 10px rgba(0,0,0,.5);
         display: none;
+    } */
+
+    .animalInfo {
+        position: absolute;
+        right: 2%;
+        top: 45%;
+        width: 20%;
+        background-color: white;
+        transform: translateY(-50%);
+        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        display: none;
+        flex-wrap: wrap;
+    }
+
+    #profilePic {
+        /* display: flex; */
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        justify-content: center;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    .animalInfo h3 {
+        padding: 15px;
+        /* display: flex; */
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+
+    .animalInfo #minimize {
+        padding: 5px;
+        font-size: 8px;
+        text-transform: none;
+        margin-bottom: 0;
+        text-align: right;
+        cursor: pointer;
+    }
+
+    .animalInfo h4 {
+        padding: 10px;
+        /* display: flex; */
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        text-align: center;
+        transition: .3s ease;
     }
 
     .mapParameters h4 {
         padding: 10px;
+        /* display: flex;   */
         text-transform: capitalize;
         letter-spacing: 1px;
         text-align: center;
         cursor: pointer;
         transition: .3s ease;
-    }
-
-    .mapParameters h3 {
-        padding: 15px;
-        text-transform: capitalize;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
     }
 
     .mapParameters h4:hover {
@@ -357,30 +394,20 @@
         letter-spacing: 2px;
     }
 
-    .animalInfo {
+    .minimizedInfo{
         position: absolute;
-        left: 2%;
-        top: 45%;
-        width: 150px;
-        background-color: white;
-        transform: translateY(-50%);
-        box-shadow: 0 5px 10px rgba(0,0,0,.5);
+        right: 1%;
+        top: 10%;
         display: none;
+        width: 10%;
+        transition: .2s ease;
     }
 
-    .animalInfo h4 {
-        padding: 10px;
-        text-transform: capitalize;
-        letter-spacing: 1px;
-        text-align: center;
-        transition: .3s ease;
-    }
-
-    .animalInfo h3 {
-        padding: 15px;
-        text-transform: capitalize;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
+    .minimizedInfo:hover{
+        width: 12%;
+        background-color: #424874bb;
+        letter-spacing: 2px;
+        cursor: pointer;
     }
 
     /* /MODAL */
@@ -450,3 +477,31 @@
     .displayNone {
         display: none;
     }
+
+@media screen and (max-width:640px) {
+  
+    .animalInfo h3{
+        font-size: 9px;
+        padding: 7px;
+    }
+
+    .animalInfo h4{
+        font-size: 8px;
+        padding: 5px;
+    }
+
+    .animalInfo #minimize {
+        padding: 5px;
+        font-size: 5px;
+    }
+
+    .thumbnail h3, h4{
+        font-size: 8px;
+        padding: 5px;
+    }
+
+    .picturesWrap{
+        height:130px;
+        bottom: 0;
+    }
+}
