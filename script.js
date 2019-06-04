@@ -20,7 +20,8 @@ function hideShow() {
     var toolbar = $("#toolbarRender");
     var searchBar = $("#picturesRender");
     if(!hidden){ 
-        toolbar.css("top", "-104px");
+        var width = parseInt(toolbar.css("width")) * -1 + 23;
+        toolbar.css("left", width);
         searchBar.css("bottom", "230px");
         $(".picturesWrap").css("display", "flex");
         $("#hider").text("SHOW");
@@ -29,7 +30,7 @@ function hideShow() {
         hidden = true;
     }
     else if(hidden){
-        toolbar.css("top", "0px");
+        toolbar.css("left", "0px");
         searchBar.css("bottom", "0px");
         $("#hider").css("background-color", "rgba(255,255,255,.0)");
         $("#hider").css("color", "#424874");
