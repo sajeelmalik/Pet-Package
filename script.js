@@ -6,7 +6,9 @@ $(document).on("click", "#hideShow", function (){
 });
 
 $(document).on("click", ".animal-pick", function() {
-    hideShow();
+    // setTimeout(function(){
+    //     $(".picturesWrap").css("display", "flex");
+    // }, 500)
 })
 
 function stopVideo() {
@@ -22,7 +24,7 @@ function hideShow() {
     if(!hidden){ 
         var width = parseInt(toolbar.css("width")) * -1 + 23;
         toolbar.css("left", width);
-        searchBar.css("bottom", "230px");
+        // searchBar.css("bottom", "230px");
         $(".picturesWrap").css("display", "flex");
         $("#hider").text("SHOW");
         $("#hider").css("background-color", "#424874");
@@ -31,7 +33,7 @@ function hideShow() {
     }
     else if(hidden){
         toolbar.css("left", "0px");
-        searchBar.css("bottom", "0px");
+        // searchBar.css("bottom", "0px");
         $("#hider").css("background-color", "rgba(255,255,255,.0)");
         $("#hider").css("color", "#424874");
         $("#hider").text("HIDE");
@@ -50,19 +52,21 @@ $(document).on("click", "#searchPets", function() {
     var toolbar = $("#toolbarRender");
     hideLanding();
     toolbar.css("top", "0px");
+    toolbar.addClass("fadeInLeft")
+    toolbar.css('display', 'flex');
 
 })
 
 $(document).on("click", "#minimize", function() {
    
-    $(".animalInfo").hide();
-    $(".minimizedInfo").show();
+    $(".animalInfo").hide(400);
+    $(".minimizedInfo").show(400);
 })
 
 $(document).on("click", ".minimizedInfo", function() {
    
-    $(".minimizedInfo").hide();
-    $(".animalInfo").show();
+    $(".minimizedInfo").hide(200);
+    $(".animalInfo").show(400);
 })
 
 

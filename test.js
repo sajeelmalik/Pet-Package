@@ -80,7 +80,7 @@ $(document).on("click", ".send", function(event){
             }
         }    
 
-        for (var i = 0; i < 5; i++){
+        for (var i = 0; i < 6; i++){
             var thumbnail = $("<div>");
             thumbnail.addClass("thumbnail");
             thumbnail.attr("id", i);
@@ -121,12 +121,17 @@ $(document).on("click", ".send", function(event){
         })
         console.log("databaseref.key= "+firebase.database().ref("/pet-package").key);
         console.log("databaseref.key= "+firebase.database().ref("/pet-package/").getKey());
+
+        //show the pictures
+        $(".picturesWrap").css("display", "flex");
+
     })
 })
 
 $(document).on("click", ".thumbnail", function(event){
    event.preventDefault();
     stopVideo();
+    hideShow();
     var parsedAddress = $(this).attr("data-location").replace(/\./g,'');
     console.log(parsedAddress)
 
