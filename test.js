@@ -22,8 +22,6 @@ $(document).on("click", ".send", function (event) {
     $(".mapParameters").hide();
 
     animalType = $(this).attr("data-type");
-    console.log(animalType);
-
     var age = $("#age-input").val();
     var size = $("#size-input").val();
     var sex = $("#sex-input").val();
@@ -35,102 +33,119 @@ $(document).on("click", ".send", function (event) {
     console.log(sex);
     console.log(zip);
 
-    $(".form-control").val("");
+    if (!zip) {
+        $("#error-message").show();
+        $("#error-message").text('- Please enter a zipcode.');
+    }
+    // checks if we have a valid zip number
+    else if (isNaN(zip)) {
+        $("#error-message").show();
+        $("#error-message").text('- Please enter a valid zipcode.');
+        console.log(isNaN(zip));
+    }
+    else {
+        $("#error-message").hide();
 
-    var userQuery = "https://cors-anywhere.herokuapp.com/http://api.petfinder.com/pet.find?key=" + petApiKey + "&animal=" + animalType + "&age=" + age + "&location=" + zip + "&size=" + size + "&sex=" + sex + "&count=25&output=full&format=json";
-    console.log(userQuery);
+        $(".form-control").val("");
 
-    $.ajax({
-        url: userQuery,
-        method: "GET"
-    }).then(function (response) {
-        console.log(response);
+        var userQuery = "https://cors-anywhere.herokuapp.com/http://api.petfinder.com/pet.find?key=" + petApiKey + "&animal=" + animalType + "&age=" + age + "&location=" + zip + "&size=" + size + "&sex=" + sex + "&count=25&output=full&format=json";
+        console.log(userQuery);
 
-        var shortenedObj = response.petfinder.pets.pet;
-        var nameArr = [];
-        var zipArr = [];
-        var imgArr = [];
-        var breedArr = [];
-        var phoneArr = [];
-        var streetAddr = [];
+        $.ajax({
+            url: userQuery,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
 
-        for (var i = 0; i < shortenedObj.length; i++) {
-            if (shortenedObj[i].contact.address1.$t && shortenedObj[i].media.photos) {
-                console.log("index of " + i);
+            var shortenedObj = response.petfinder.pets.pet;
+            var nameArr = [];
+            var zipArr = [];
+            var imgArr = [];
+            var breedArr = [];
+            var phoneArr = [];
+            var streetAddr = [];
 
-                nameArr.push(shortenedObj[i].name.$t);
-                zipArr.push(shortenedObj[i].contact.city.$t + " " + shortenedObj[i].contact.zip.$t);
-                imgArr.push(shortenedObj[i].media.photos.photo[2].$t);
-                streetAddr.push(shortenedObj[i].contact.address1.$t);
+            for (var i = 0; i < shortenedObj.length; i++) {
+                if (shortenedObj[i].contact.address1.$t && shortenedObj[i].media.photos) {
+                    console.log("index of " + i);
 
-                if (shortenedObj[i].breeds.breed.$t) {
-                    breedArr.push(shortenedObj[i].breeds.breed.$t);
+                    nameArr.push(shortenedObj[i].name.$t);
+                    zipArr.push(shortenedObj[i].contact.city.$t + " " + shortenedObj[i].contact.zip.$t);
+                    imgArr.push(shortenedObj[i].media.photos.photo[2].$t);
+                    streetAddr.push(shortenedObj[i].contact.address1.$t);
+
+                    if (shortenedObj[i].breeds.breed.$t) {
+                        breedArr.push(shortenedObj[i].breeds.breed.$t);
+                    }
+                    else {
+                        breedArr.push(shortenedObj[i].breeds.breed[0].$t);
+                    }
+
+                    if (shortenedObj[i].contact.phone.$t) {
+                        phoneArr.push(shortenedObj[i].contact.phone.$t)
+                    }
+                    else {
+                        phoneArr.push("Information Not Given");
+                    }
+
                 }
-                else {
-                    breedArr.push(shortenedObj[i].breeds.breed[0].$t);
-                }
-
-                if (shortenedObj[i].contact.phone.$t) {
-                    phoneArr.push(shortenedObj[i].contact.phone.$t)
-                }
-                else {
-                    phoneArr.push("Information Not Given");
-                }
-
             }
-        }
 
-        for (var i = 0; i < 6; i++) {
-            var thumbnail = $("<div>");
-            thumbnail.addClass("thumbnail");
-            thumbnail.attr("id", i);
-            var petName = $("<h4>").text(nameArr[i]);
-            thumbnail.attr("name", nameArr[i]);
-            var breedType = $("<p>").text(breedArr[i]);
-            thumbnail.attr("breed", breedArr[i]);
-            thumbnail.attr("data-location", streetAddr[i]);
-            thumbnail.attr("data-zip", zipArr[i]);
-            thumbnail.attr("data-image", imgArr[i]);
-            var phoneNum = $("<p>").text(phoneArr[i]);
-            thumbnail.attr("number", phoneArr[i]);
-            var image = $("<img>").attr(
-                {
-                    "src": imgArr[i],
-                    "alt": "Adoptable Pet"
-                });
-            thumbnail.append(petName, image);
-            $(".picturesWrap").append(thumbnail);
-        }
+            for (var i = 0; i < 6; i++) {
+                var thumbnail = $("<div>");
+                thumbnail.addClass("thumbnail");
+                thumbnail.attr("id", i);
+                var petName = $("<h4>").text(nameArr[i]);
+                thumbnail.attr("name", nameArr[i]);
+                var breedType = $("<p>").text(breedArr[i]);
+                thumbnail.attr("breed", breedArr[i]);
+                thumbnail.attr("data-location", streetAddr[i]);
+                thumbnail.attr("data-zip", zipArr[i]);
+                thumbnail.attr("data-image", imgArr[i]);
+                var phoneNum = $("<p>").text(phoneArr[i]);
+                thumbnail.attr("number", phoneArr[i]);
+                var image = $("<img>").attr(
+                    {
+                        "src": imgArr[i],
+                        "alt": "Adoptable Pet"
+                    });
+                thumbnail.append(petName, image);
+                $(".picturesWrap").append(thumbnail);
+            }
 
-        console.log(nameArr);
-        console.log(zipArr);
-        console.log(imgArr);
-        console.log(phoneArr);
-        console.log(breedArr);
+            console.log(nameArr);
+            console.log(zipArr);
+            console.log(imgArr);
+            console.log(phoneArr);
+            console.log(breedArr);
 
-        database.ref().push({
+            database.ref().push({
 
-            //Storing search params
-            Type: animalType,
-            age: age,
-            size: size,
-            sex: sex,
-            zip: zip,
+                //Storing search params
+                Type: animalType,
+                age: age,
+                size: size,
+                sex: sex,
+                zip: zip,
 
-            //Storing petfinder API return data
-            name: nameArr,
-            zipCode: zipArr,
-            images: imgArr,
-            phoneNum: phoneArr
+                //Storing petfinder API return data
+                name: nameArr,
+                zipCode: zipArr,
+                images: imgArr,
+                phoneNum: phoneArr
+            })
+            console.log("databaseref.key= " + firebase.database().ref("/pet-package").key);
+            console.log("databaseref.key= " + firebase.database().ref("/pet-package/").getKey());
+
+            //show the pictures
+            $("#picturesRender").show();
+            $("#divider").addClass("extend");
+            $(".picturesWrap").css("display", "flex");
+
         })
-        console.log("databaseref.key= " + firebase.database().ref("/pet-package").key);
-        console.log("databaseref.key= " + firebase.database().ref("/pet-package/").getKey());
-
-        //show the pictures
-        $(".picturesWrap").css("display", "flex");
-
-    })
+    }
 })
+
 
 $(document).on("click", ".thumbnail", function (event) {
     event.preventDefault();
