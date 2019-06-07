@@ -8,7 +8,7 @@ var config = {
     projectId: "pet-package",
     storageBucket: "pet-package.appspot.com",
     messagingSenderId: "164600393958"
-  };
+};
 
 firebase.initializeApp(config);
 
@@ -17,35 +17,35 @@ var animalType;
 var address;
 
 
-$(document).on("click", ".send", function(event){
+$(document).on("click", ".send", function (event) {
     event.preventDefault();
     $(".mapParameters").hide();
-    
+
     animalType = $(this).attr("data-type");
     console.log(animalType);
-    
+
     var age = $("#age-input").val();
     var size = $("#size-input").val();
     var sex = $("#sex-input").val();
     var zip = $("#location-input").val();
-    
+
     console.log(animalType);
     console.log(age);
     console.log(size);
     console.log(sex);
     console.log(zip);
-    
+
     $(".form-control").val("");
-    
+
     var userQuery = "https://cors-anywhere.herokuapp.com/http://api.petfinder.com/pet.find?key=" + petApiKey + "&animal=" + animalType + "&age=" + age + "&location=" + zip + "&size=" + size + "&sex=" + sex + "&count=25&output=full&format=json";
     console.log(userQuery);
-    
+
     $.ajax({
         url: userQuery,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response);
-        
+
         var shortenedObj = response.petfinder.pets.pet;
         var nameArr = [];
         var zipArr = [];
@@ -57,30 +57,30 @@ $(document).on("click", ".send", function(event){
         for (var i = 0; i < shortenedObj.length; i++) {
             if (shortenedObj[i].contact.address1.$t && shortenedObj[i].media.photos) {
                 console.log("index of " + i);
-                
+
                 nameArr.push(shortenedObj[i].name.$t);
                 zipArr.push(shortenedObj[i].contact.city.$t + " " + shortenedObj[i].contact.zip.$t);
                 imgArr.push(shortenedObj[i].media.photos.photo[2].$t);
                 streetAddr.push(shortenedObj[i].contact.address1.$t);
-                
-                if(shortenedObj[i].breeds.breed.$t) {
+
+                if (shortenedObj[i].breeds.breed.$t) {
                     breedArr.push(shortenedObj[i].breeds.breed.$t);
                 }
                 else {
                     breedArr.push(shortenedObj[i].breeds.breed[0].$t);
                 }
-                
+
                 if (shortenedObj[i].contact.phone.$t) {
                     phoneArr.push(shortenedObj[i].contact.phone.$t)
                 }
                 else {
                     phoneArr.push("Information Not Given");
                 }
-        
-            }
-        }    
 
-        for (var i = 0; i < 6; i++){
+            }
+        }
+
+        for (var i = 0; i < 6; i++) {
             var thumbnail = $("<div>");
             thumbnail.addClass("thumbnail");
             thumbnail.attr("id", i);
@@ -93,19 +93,23 @@ $(document).on("click", ".send", function(event){
             thumbnail.attr("data-image", imgArr[i]);
             var phoneNum = $("<p>").text(phoneArr[i]);
             thumbnail.attr("number", phoneArr[i]);
-            var image = $("<img>").attr("src", imgArr[i]);
+            var image = $("<img>").attr(
+                {
+                    "src": imgArr[i],
+                    "alt": "Adoptable Pet"
+                });
             thumbnail.append(petName, image);
             $(".picturesWrap").append(thumbnail);
-        }   
+        }
 
         console.log(nameArr);
         console.log(zipArr);
         console.log(imgArr);
         console.log(phoneArr);
         console.log(breedArr);
-        
+
         database.ref().push({
-            
+
             //Storing search params
             Type: animalType,
             age: age,
@@ -117,10 +121,10 @@ $(document).on("click", ".send", function(event){
             name: nameArr,
             zipCode: zipArr,
             images: imgArr,
-            phoneNum: phoneArr 
+            phoneNum: phoneArr
         })
-        console.log("databaseref.key= "+firebase.database().ref("/pet-package").key);
-        console.log("databaseref.key= "+firebase.database().ref("/pet-package/").getKey());
+        console.log("databaseref.key= " + firebase.database().ref("/pet-package").key);
+        console.log("databaseref.key= " + firebase.database().ref("/pet-package/").getKey());
 
         //show the pictures
         $(".picturesWrap").css("display", "flex");
@@ -128,38 +132,38 @@ $(document).on("click", ".send", function(event){
     })
 })
 
-$(document).on("click", ".thumbnail", function(event){
-   event.preventDefault();
+$(document).on("click", ".thumbnail", function (event) {
+    event.preventDefault();
     stopVideo();
     hideShow();
-    var parsedAddress = $(this).attr("data-location").replace(/\./g,'');
+    var parsedAddress = $(this).attr("data-location").replace(/\./g, '');
     console.log(parsedAddress)
 
-    if(parsedAddress.includes("PO Box" || "POBox" || "P O Box")){
+    if (parsedAddress.includes("PO Box" || "POBox" || "P O Box")) {
         address = $(this).attr("data-zip");
     }
-    else{
+    else {
         address = $(this).attr("data-location") + " " + $(this).attr("data-zip");
     }
-   
 
-   console.log(address);
 
-   var queryURL = "https://www.google.com/maps/embed/v1/search?q=" + address + "&key=" + mapApiKey;
-   console.log("queryURL = "+ queryURL);
-   $("#google-map").attr("src", queryURL);
-   $(".mapParameters").show();
-   $(".animalInfo").show();
-//    $(".animalInfo").css("display", "flex");
+    console.log(address);
+
+    var queryURL = "https://www.google.com/maps/embed/v1/search?q=" + address + "&key=" + mapApiKey;
+    console.log("queryURL = " + queryURL);
+    $("#google-map").attr("src", queryURL);
+    $(".mapParameters").show();
+    $(".animalInfo").show();
+    //    $(".animalInfo").css("display", "flex");
 
     var pic = $("<img>").attr("src", $(this).attr("data-image"))
-   $("#profilePic").html(pic);
-   $("#mapName").text("Name: " + $(this).attr("name"));
-   $("#mapBreed").text($(this).attr("breed"));
-   $("#mapNumber").text($(this).attr("number"));
+    $("#profilePic").html(pic);
+    $("#mapName").text("Name: " + $(this).attr("name"));
+    $("#mapBreed").text($(this).attr("breed"));
+    $("#mapNumber").text($(this).attr("number"));
 });
 
-$(document).on("click", "#mapVets", function(event){
+$(document).on("click", "#mapVets", function (event) {
     event.preventDefault();
 
     var vets = "Veterinarians Near " + address;
@@ -169,7 +173,7 @@ $(document).on("click", "#mapVets", function(event){
     $("#google-map").attr("src", queryURL);
 });
 
-$(document).on("click", "#mapParks", function(event){
+$(document).on("click", "#mapParks", function (event) {
     event.preventDefault();
 
     var parks = "Dog Parks Near " + address;
@@ -178,7 +182,7 @@ $(document).on("click", "#mapParks", function(event){
     $("#google-map").attr("src", queryURL);
 });
 
-$(document).on("click", "#mapStores", function(event){
+$(document).on("click", "#mapStores", function (event) {
     event.preventDefault();
 
     var stores = "Pet Stores Near " + address;

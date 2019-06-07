@@ -29,14 +29,13 @@
   <body>
     <div class="modalPopup"></div>
 
-    <div id="toolbarRender">
+    <header id="toolbarRender">
       <div class="toolBarWrap">
         <div class="toolbarHead">
           <h3>PET PACKAGE</h3>
         </div>
         <div class="paramWrap">
           <div class="paramSection">
-
             <div class="inputChunk">
               <h4>Zipcode</h4>
               <input type="text" id="location-input" />
@@ -51,7 +50,7 @@
                 <option value="XL">XLarge</option>
               </select>
             </div>
-            
+
             <div class="inputChunk">
               <h4>Age</h4>
               <select name="age" class="uk-select" id="age-input">
@@ -73,18 +72,18 @@
 
           <div class="paramSection">
             <div class="inputChunk">
-            <h4>Select Your Pet!</h4>
+              <h4>Select Your Pet!</h4>
               <div class="typeSelect">
                 <img
                   src="img/dogSelect.png"
-                  alt=""
+                  alt="Search a Dog!"
                   id="dogSelect"
                   class="animal-pick send"
                   data-type="dog"
                 />
                 <img
                   src="img/catSelect.png"
-                  alt=""
+                  alt="Search a Cat!"
                   id="catSelect"
                   class="animal-pick send"
                   data-type="cat"
@@ -93,80 +92,84 @@
             </div>
           </div>
           <div id="picturesRender">
-            <div id = "divider"></div>
-            <div class="picturesWrap" uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 200"></div>
-    </div>
+            <div id="divider"></div>
+            <div
+              class="picturesWrap"
+              uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 200"
+            ></div>
+          </div>
         </div>
       </div>
       <div id="hideShow">
         <h3 id="hider">HIDE</h3>
       </div>
-      
-    </div>
+    </header>
 
-    <div class="animalInfo">
-      <h3 id="minimize">minimize</h3>
-      <h3>Pet Info</h3>
-      <div id="profilePic"></div>
-      <h4 id="mapName">Name</h4>
-      <h4 id="mapBreed">Breed</h4>
-      <h4 id="mapNumber">Phone Number</h4>
-      <h3>Readjust Map</h3>
-      <div class="mapParameters">
-        <h4 id="mapVets">Vets</h4>
-        <h4 id="mapStores">Pet stores</h4>
-        <h4 id="mapParks">Dog Parks</h4>
-      </div>
-    </div>
-
-    <div class="minimizedInfo">
-      <h3>Pet Info</h3>
-    </div>
-
-    <div class="landingWrap">
-      <div id="imgWrap">
-        <img src="img/dogSelect.png" alt="logo" id="logo" />
-      </div>
-      <h1 class="center">Pet Package</h1>
-      <p class="center">
-        Pet Package is a platform that allows pet-seekers to search and contact
-        local adoption clinics by offering geographic references.
-      </p>
-      <h3 id="searchPets">Search pets!</h3>
-    </div>
-
-    <div class="infoCardWrap">
-      <div id="profilePic"></div>
-      <div id="infoCardRightSide">
-        <div id="profileName">
-          <h2 id="cardName">Name</h2>
-        </div>
-        <div id="profileSex">
-          <h3 id="cardSex">Sex</h3>
-        </div>
-        <div id="profileZip">
-          <h3 id="cardZip">Zip</h3>
+    <main role="main">
+      <div class="animalInfo">
+        <h3 id="minimize">minimize</h3>
+        <h3>Pet Info</h3>
+        <div id="profilePic"></div>
+        <h4 id="mapName">Name</h4>
+        <h4 id="mapBreed">Breed</h4>
+        <h4 id="mapNumber">Phone Number</h4>
+        <h3>Readjust Map</h3>
+        <div class="mapParameters">
+          <h4 id="mapVets">Vets</h4>
+          <h4 id="mapStores">Pet stores</h4>
+          <h4 id="mapParks">Dog Parks</h4>
         </div>
       </div>
-    </div>
 
-    <div id="modalCover"></div>
+      <div class="minimizedInfo">
+        <h3>Pet Info</h3>
+      </div>
 
-    <div id="mapRender">
-      <iframe
-        id="google-map"
-        width="100%"
-        height="100vh"
-        frameborder="0"
-        style="border:0"
-        allowfullscreen
-      ></iframe>
-      <!-- <link rel="stylesheet" href="assets/css/maps.css"> -->
-    </div>
+      <div class="landingWrap">
+        <div id="imgWrap">
+          <img src="img/dogSelect.png" alt="Pet Package Logo" id="logo" />
+        </div>
+        <h1 class="center">Pet Package</h1>
+        <p class="center">
+          Pet Package is a platform that allows pet-seekers to search and
+          contact local adoption clinics by offering geographic references.
+        </p>
+        <h3 id="searchPets">Search pets!</h3>
+      </div>
 
-    <video poster="#" id="dogVideo" autoplay muted loop>
-      <source src="graphics/dogvideo.mp4" type="video/mp4" />
-    </video>
+      <div class="infoCardWrap">
+        <div id="profilePic"></div>
+        <div id="infoCardRightSide">
+          <div id="profileName">
+            <h2 id="cardName">Name</h2>
+          </div>
+          <div id="profileSex">
+            <h3 id="cardSex">Sex</h3>
+          </div>
+          <div id="profileZip">
+            <h3 id="cardZip">Zip</h3>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalCover"></div>
+
+      <div id="mapRender">
+        <iframe
+          id="google-map"
+          width="100%"
+          height="100vh"
+          frameborder="0"
+          style="border:0"
+          allowfullscreen
+        ></iframe>
+        <!-- <link rel="stylesheet" href="assets/css/maps.css"> -->
+      </div>
+
+      <video poster="#" id="dogVideo" autoplay muted loop alt="Background Video of Playing Dog">
+        <source src="graphics/dogvideo.mp4" type="video/mp4" />
+      </video>
+    </main>
   </body>
   <script src="script.js"></script>
   <script src="test.js"></script>

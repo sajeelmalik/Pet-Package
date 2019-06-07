@@ -8,7 +8,7 @@ $(document).on("click", "#hideShow", function (){
 $(document).on("click", ".animal-pick", function() {
     // setTimeout(function(){
     //     $(".picturesWrap").css("display", "flex");
-    // }, 500)
+    // }, 700)
 })
 
 function stopVideo() {
