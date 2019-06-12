@@ -45,7 +45,6 @@ $(document).on("click", ".send", function (event) {
     }
     else {
         $("#error-message").hide();
-
         $(".form-control").val("");
 
         var userQuery = "https://cors-anywhere.herokuapp.com/http://api.petfinder.com/pet.find?key=" + petApiKey + "&animal=" + animalType + "&age=" + age + "&location=" + zip + "&size=" + size + "&sex=" + sex + "&count=25&output=full&format=json";
@@ -67,7 +66,6 @@ $(document).on("click", ".send", function (event) {
 
             for (var i = 0; i < shortenedObj.length; i++) {
                 if (shortenedObj[i].contact.address1.$t && shortenedObj[i].media.photos) {
-                    console.log("index of " + i);
 
                     nameArr.push(shortenedObj[i].name.$t);
                     zipArr.push(shortenedObj[i].contact.city.$t + " " + shortenedObj[i].contact.zip.$t);
@@ -113,11 +111,13 @@ $(document).on("click", ".send", function (event) {
                 $(".picturesWrap").append(thumbnail);
             }
 
-            console.log(nameArr);
-            console.log(zipArr);
-            console.log(imgArr);
-            console.log(phoneArr);
-            console.log(breedArr);
+            // test logs for individual data entries
+
+            // console.log(nameArr);
+            // console.log(zipArr);
+            // console.log(imgArr);
+            // console.log(phoneArr);
+            // console.log(breedArr);
 
             database.ref().push({
 
@@ -182,7 +182,6 @@ $(document).on("click", "#mapVets", function (event) {
     event.preventDefault();
 
     var vets = "Veterinarians Near " + address;
-    console.log(vets);
 
     var queryURL = "https://www.google.com/maps/embed/v1/search?q=" + vets + "&key=" + mapApiKey;
     $("#google-map").attr("src", queryURL);

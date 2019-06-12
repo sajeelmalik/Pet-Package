@@ -185,6 +185,8 @@ input[type="reset"] {
 }
 
 .thumbnail {
+  display: flex;
+  flex-direction: column;
   height: 200px;
   width: 200px;
   padding: 10px;
@@ -427,11 +429,11 @@ video {
 }
 
 #profilePic {
-  /* display: flex; */
+  display: flex;
   width: 100%;
   height: auto;
-  /* border-radius: 15px; */
-  justify-content: center;
+  max-height: 300px;
+  align-items: center;
   overflow: hidden;
   background-color: white;
 }
@@ -446,6 +448,8 @@ video {
 }
 
 .animalInfo #minimize {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
   padding: 5px;
   font-size: 8px;
   text-transform: none;

@@ -60,7 +60,7 @@ $(document).on("click", "#searchPets", function() {
 $(document).on("click", "#minimize", function() {
    
     $(".animalInfo").hide(400);
-    $(".minimizedInfo").show(400);
+    $(".minimizedInfo").show(350);
 })
 
 $(document).on("click", ".minimizedInfo", function() {
